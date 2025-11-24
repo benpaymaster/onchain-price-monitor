@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "name": "onchain-price-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "monitor": "node scripts/monitor.js",
+    "mempool": "node scripts/mempool-mev.js",
+    "curve": "node scripts/curve-monitor.js",
+    "deviation": "node scripts/deviation-monitor.js",
+    "test": "node test/calc.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@flashbots/mev-share-client": "^0.7.13",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "viem": "^2.38.6",
+    "ws": "^8.18.3"
+  }
+}

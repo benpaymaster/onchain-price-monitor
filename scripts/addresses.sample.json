@@ -1,0 +1,29 @@
+{
+  "mainnet": {
+    "tokens": {
+      "WETH": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "USDC": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "DAI": "0x6B175474E89094C44Da98b954EedeAC495271d0F"
+    },
+    "chainlink": {
+      "ETH_USD": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+      "DAI_USD": "0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9",
+      "USDC_USD": "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6"
+    },
+    "uniswap": {
+      "v3Pools": {
+        "WETH_USDC_500": "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640"
+      }
+    },
+    "curve": {
+      "threePool": "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7",
+      "coins": {
+        "DAI_INDEX": 0,
+        "USDC_INDEX": 1
+      }
+    },
+    "routers": [
+      "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    ]
+  }
+}

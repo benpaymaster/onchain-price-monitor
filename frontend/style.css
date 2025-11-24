@@ -1,0 +1,21 @@
+body {
+  background: #111;
+  color: #eee;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem;
+}
+
+.card {
+  background: #222;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  font-size: 1.2rem;
+}
