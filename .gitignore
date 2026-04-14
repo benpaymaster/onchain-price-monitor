@@ -1,1 +1,33 @@
 node_modules
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+.venv/
+env/
+
+# --- Go ---
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+# Main binary
+backend/cmd/sentinel/sentinel
+# Temporary ABI files
+clean_abi.json
+
+# --- Solidity / Foundry ---
+# Foundry output
+out/
+cache/
+# Broadcasts (contains transaction data/private keys)
+broadcast/
+
+# --- System / IDE ---
+.DS_Store
+.vscode/
+.idea/

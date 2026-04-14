@@ -1,101 +1,112 @@
-# Onchain Price Monitor
-
-![CI](https://img.shields.io/github/actions/workflow/status/benpaymaster/onchain-price-monitor/ci.yml?branch=main)
-![Docker](https://img.shields.io/badge/docker-ready-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+# Onchain Price Monitor & Sentinel
 
 ## Professional Summary
-Onchain Price Monitor is a production-grade infrastructure monitoring and pricing engine, built to showcase the skills and practices required for top-tier trading and infrastructure engineering roles. It demonstrates expertise in Python, distributed systems, cloud-native deployment, and collaborative Agile development.
+
+Onchain Price Monitor is a production-grade infrastructure monitoring and pricing engine. Originally built as a distributed Python system, it has been expanded to include a **Blockchain Sentinel** layer. This demonstrates the full-stack expertise required for top-tier trading firms: combining high-level data analytics with low-latency, systems-level "circuit breakers" that protect on-chain assets.
 
 ## Why This Project?
-This project was developed to align with the requirements of Jump Trading’s Production Engineering team. It highlights:
-- Experience with Python, Docker, Kubernetes, Kafka, Redis, SQL
-- Building robust, scalable, and testable systems
-- Production readiness: logging, metrics, health checks, CI/CD
-- Collaborative workflow and documentation
+
+This project aligns with the requirements of firms like Jump Trading, Jane Street, or Wintermute. It highlights:
+
+-   **Low-Latency Monitoring:** Using **Go** for direct, high-performance interaction with EVM-compatible chains.
+    
+-   **On-Chain Risk Management:** Solidity-based circuit breakers designed to pause trading during market anomalies or Oracle failures.
+    
+-   **Production Engineering:** Experience with Python, Docker, Kubernetes, Kafka, and Redis.
+    
+-   **Systems Integration:** Generating type-safe Go bindings from Solidity ABI to ensure robust, testable interactions between off-chain and on-chain layers.
+    
 
 ## Tech Stack
-- **Python 3.12** (Flask, pytest, type hints)
-- **Kafka** (bitnami/kafka)
-- **Redis** (redis:7)
-- **SQLite** (local, can be swapped for PostgreSQL)
-- **Docker & docker-compose**
-- **Kubernetes** (manifests in `deploy/k8s`)
-- **GitHub Actions** (CI/CD)
-- **Prometheus** (metrics)
+
+-   **Languages:** Python 3.12 (Flask, pytest), Go 1.24 (Geth/abigen), Solidity (Foundry)
+    
+-   **Messaging & Cache:** Kafka (bitnami/kafka), Redis (redis:7)
+    
+-   **Persistence:** SQLite (local/dev), PostgreSQL (production-ready)
+    
+-   **Infrastructure:** Docker & docker-compose, Kubernetes (deploy/k8s)
+    
+-   **Blockchain:** Foundry/Anvil (local node), OpenZeppelin Access Control
+    
+-   **Observability:** Prometheus metrics, Structured Logging
+    
 
 ## Features
-- REST API for pricing and monitoring
-- Kafka producer/consumer integration
-- Redis cache for fast data access
-- SQLite database for persistent storage
-- Docker and Kubernetes orchestration
-- CI/CD pipeline with GitHub Actions
-- Structured logging and Prometheus metrics
-- Health check endpoints
-- Unit and integration tests
-- Type hints and docstrings
-- Agile workflow templates
 
-## Demo
-### Build and Run with Docker Compose
-```bash
-docker-compose up --build
+-   **Blockchain Sentinel:** A Go-based monitoring agent that tracks price health and triggers an emergency `pause` via `TradingGuard.sol`.
+    
+-   **Automated Bindings:** CI/CD ready generation of Go interfaces for smart contracts.
+    
+-   **REST API:** Production-grade endpoints for pricing and system health.
+    
+-   **Distributed Processing:** Kafka producer/consumer integration for async monitoring.
+    
+-   **CI/CD:** Fully automated testing and linting via GitHub Actions.
+    
+
+## Demo & Execution
+
+### 1\. Smart Contract Layer (Foundry)
+
+To deploy the security layer and circuit breaker:
+
+```Bash
+
+    # Start local node
+    anvil
+    
+    # Deploy contracts
+    forge script script/Deploy.s.sol --rpc-url http://127.0.0.1:8545 --broadcast
 ```
 
-#### Troubleshooting Docker Compose
-- If you see a permissions error (e.g., `Permission denied`), run with `sudo`:
-  ```bash
-  sudo docker-compose up --build
-  ```
-- If you see `Could not find a required file. Name: index.js Searched in: /app/src`, make sure `frontend/react-dashboard/src/index.js` exists and is valid.
-- For missing dependencies, run `npm install` in `frontend/react-dashboard` before building.
-- For other errors, check that all services are correctly defined in `docker-compose.yaml` and that Docker is running.
+### 2\. Blockchain Sentinel (Go)
 
-### Run Tests
-```bash
-pytest backend/python/tests
+To run the automated monitor and trigger the circuit breaker:
+
+```Bash
+
+    cd backend
+    go mod tidy
+    go run ./cmd/sentinel
 ```
 
-### Example API Calls
-```bash
-curl 'http://localhost:5000/api/price?base_price=100&slippage=0.01'
-curl 'http://localhost:5000/api/monitor'
-curl 'http://localhost:5000/health'
-curl 'http://localhost:5000/metrics'
+### 3\. Distributed Infrastructure (Docker)
+
+```Bash
+
+    docker-compose up --build
 ```
+
+#### Troubleshooting
+
+-   **Permission Errors:** Run with `sudo docker-compose up --build`.
+    
+-   **Missing Bindings:** If `contracts/TradingGuard.go` is missing, regenerate via: `forge inspect TradingGuard abi --json > clean_abi.json && abigen --abi clean_abi.json --pkg contracts --type TradingGuard --out contracts/TradingGuard.go`
+    
 
 ## Architecture
-- **Backend:** Python (Flask), Kafka, Redis, SQLite
-- **Containers:** Docker, docker-compose
-- **Orchestration:** Kubernetes manifests (deploy/k8s)
-- **CI/CD:** GitHub Actions (.github/workflows/ci.yml)
 
-## GitHub Workflow
-To push your changes:
-```bash
-git add .
-git commit -m "Fix docker-compose.yaml and update orchestration docs"
-git push origin main
-```
+-   **Analytical Layer:** Python (Flask) handles complex pricing logic and REST interface.
+    
+-   **Security Layer:** Go Sentinel monitors on-chain conditions with minimal overhead.
+    
+-   **Execution Layer:** Solidity contracts enforce the "Kill Switch" logic on-chain.
+    
+-   **CI/CD:** GitHub Actions (.github/workflows/ci.yml) manages code quality.
+    
 
 ## Agile & Collaboration
-- Issues, PR templates, and workflow samples included
-- Code is documented and ready for team collaboration
 
-## How to Contribute
-1. Fork the repo and create a feature branch
-2. Open an issue to discuss your idea or bug
-3. Submit a pull request referencing the issue
-4. Ensure all tests pass and code is documented
-5. Participate in code reviews and discussions
+-   Issues, PR templates, and workflow samples included.
+    
+-   Code is documented with type hints and docstrings for team scalability.
+    
 
 ## License
+
 MIT
 
-## Contact
-For job applications, technical questions, or collaboration, please reach out via LinkedIn or email.
+* * *
 
----
-
-This project is designed to showcase production engineering skills for roles at top trading firms like Jump Trading.
+**Contact:** Reach out via LinkedIn or GitHub for collaboration or technical inquiries.
